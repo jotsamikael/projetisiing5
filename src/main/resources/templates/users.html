@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+
+
+    <title>AgriWeb</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+<div class="container-fluid">
+    <div>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg bg-success navbar-light">
+            <!-- Brand -->
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/img/agriweblogo.png}" alt="app-logo" style="width:25%;"/>
+            </a>
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users}">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/products}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/orders}">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/reports}">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--/.Navbar-->
+    </div>
+    <div>
+        <h2>Manage Users</h2>
+        <a class="btn btn-success" th:href="@{/users/new}">Create a new user</a>
+
+        <div th:if="${message!= null}" class="alert alert-success text-center">
+            [[${message}]]
+
+        </div>
+
+        <table class="table table-responsive-xl table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+                 <tr>
+                     <th>User's ID</th>
+                     <th>Photo</th>
+                     <th>Username</th>
+                     <th>email</th>
+                     <th>Roles</th>
+                     <th>enabled?</th>
+                     <th>Action</th>
+                 </tr>
+            </thead>
+            <tbody>
+               <tr th:each = "user: ${userList}">
+                   <td>[[${user.idUser}]]</td>
+                   <td><span th:if="${user.photo == null}"  class="fas fa-portrait fa-3x icon-dark"></span>
+                        <img style="width: 100px" alt="user photo" th:if="${user.photo !=null}" th:src="@{${user.photoImagePath}}"/> </td>
+                   <td>[[${user.username}]]</td>
+                   <td>[[${user.email}]]</td>
+                   <td>[[${user.roles}]]</td>
+                   <td><a th:href="@{'/users/' + ${user.idUser} +'/enabled/false'}" title="disable this user"><span th:if="${user.enabled == true}"  class="fas fa-check-circle fa-2x icon-green"></span></a>
+                       <a th:href="@{'/users/' + ${user.idUser} +'/enabled/true'}" title="enable this user"><span th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"></span></a>
+                   </td>
+                   <td><a th:href="@{'/users/edit/' +${user.idUser}}" title="Edit this user" class="btn btn-primary"><span class="fas fa-edit"></span>
+                   </a>&nbsp;<a th:idUser="${user.idUser}" th:href="@{'/users/delete/' + ${user.idUser}}" title="Delete this user" class="btn btn-danger link-delete"><span class="fas fa-remove"></span></a></td>
+               </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+   <div class="text-center m-1" th:if="${totalItems > 0}">
+         <span > Showing users #[[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+   </div>
+
+<div class="text-center m-1" th:unless="${totalItems > 0}">
+    <span> No users found</span>
+</div>
+
+ <div>
+     <nav>
+         <ul class="pagination justify-content-center">
+            <li th:class="${currentPage  > 1 ? 'page-item': 'page-item disabled'}"><a class="page-link" th:href="@{/users/page/1}">First</a></li>
+
+             <li th:class="${currentPage > 1 ? 'page-item': 'page-item disabled'}"><a class="page-link" th:href="@{'/users/page/' +${currentPage - 1}}">Previous</a></li>
+
+             <li th:class="${currentPage != i ? 'page-item': 'page-item active' }" th:each="i : ${#numbers.sequence(1, totalPages)}"><a class="page-link"  th:href="@{'/users/page/' +${i}}">[[${i}]]</a></li>
+             <li th:class="${currentPage < totalPages ? 'page-item': 'page-item disabled'}"><a class="page-link" th:href="@{'/users/page/' +${currentPage + 1}}">Next</a></li>
+             <li th:class="${currentPage < totalPages ? 'page-item': 'page-item disabled'}"><a class="page-link" th:href="@{'/users/page/' + ${totalPages}}">Last</a></li>
+         </ul>
+     </nav>
+
+ </div>
+
+<!-- Modal popup-->
+<div class="modal fade text-center" id="confirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Confirmation</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <span  id="confirmText"></span>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-success" id="yesButton">Yes</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal popup-->
+
+<footer class="footer bg-dark">
+    <div class="text-center">
+        <p class="text-white">Made with ♥ by Group xx || All rights reserved &copy; Agriweb 2022</p>
+    </div>
+</footer>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            link = $(this);
+           // alert($(this).attr("href"));
+            idUser = link.attr("idUser");
+            $("#yesButton").attr("href",link.attr("href"))
+
+            $("#confirmText").text("Are you sure you want to delete this user" +idUser+ " ?");
+            $("#confirmModal").modal();
+
+        })
+    })
+</script>
+</body>
+
+</html>
