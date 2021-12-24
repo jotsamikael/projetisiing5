@@ -64,4 +64,19 @@ public class UserRepositoryTest {
         listUsers.forEach(user-> System.out.println(user));
        assertThat(listUsers.size()).isEqualTo(pageSize);
     }
+
+    @Test
+    //verifie la presence du mot clé dans une table de la bd
+    public void testSearchUsers(){
+        String keyword = "lamb";
+        int pageNumber = 0;
+        int pageSize = 4;
+        Pageable pageable = (Pageable) PageRequest.of(pageNumber, pageSize);
+        Page<User> page = userRepo.findAll(pageable);
+
+        List<User> listUsers = page.getContent();
+        listUsers.forEach(user-> System.out.println(user));
+        assertThat(listUsers.size()).isGreaterThan(0);
+
+    }
 }
