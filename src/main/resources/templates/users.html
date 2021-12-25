@@ -61,7 +61,10 @@
     </div>
     <div>
         <h2>Manage Users</h2>
-        <a class="btn btn-success m-3" th:href="@{/users/new}">Create a new user</a>
+        <a class="fas fa-user-plus fa-3x icon-dark m-4" th:href="@{/users/new}"></a>
+        &nbsp;|&nbsp;
+        <a class="fas fa-file-csv fa-3x icon-green m-4" th:href="@{/users/export/csv}"></a>
+
 
         <div th:if="${message!= null}" class="alert alert-success text-center">
             [[${message}]]
@@ -76,19 +79,25 @@
                 Filter:&nbsp;
                 <input type="search" name="keyword" th:value="${keyword}" required class="form-control"/>
                 &nbsp;&nbsp;
-                <input type="submit" value="Search" class="btn btn-success" />
+                <button type="submit"  class="btn btn-success" >
+                    <i class="fas fa-search"></i>
+                </button>
                 &nbsp;&nbsp;
-                <input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()" />
+                <button type="button" class="btn btn-secondary" onclick="clearFilter()" >
+                    <i class="fas fa-eraser"></i>
+                </button>
 
             </form>
         </div>
 
-        <table class="table table-responsive-xl table-striped table-bordered table-hover">
+          <div class="full-details">
+             <table class="table table-responsive-xl table-striped table-bordered table-hover">
             <thead class="thead-dark">
                  <tr>
                      <th>User's ID</th>
                      <th>Photo</th>
-                     <th>
+                     <th th:replace="fragments :: column_link('username', 'Username', 'none')" />
+                     <!--<th>
                         <a class="text-white" th:if="${sortField != 'username'}" th:href="@{'/users/page/' +${currentPage} + '?sortField=username&sortDir=' + ${sortDir}+ ${keyword != null ? '&keyword=' +keyword: '' }}">
                             Username
                         </a>
@@ -97,8 +106,8 @@
                          </a>
                          <span th:if="${sortField == 'username'}"
                          th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down' }"></span>
-                     </th>
-                     <th>
+                     </th>-->
+                    <!-- <th>
                          <a class="text-white" th:if="${sortField != 'email'}" th:href="@{'/users/page/' +${currentPage} + '?sortField=email&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">
                          Email
                          </a>
@@ -107,10 +116,13 @@
                          </a>
                          <span th:if="${sortField == 'email'}"
                                th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down' }"></span>
+                     </th>-->
+                     <th class="hideable-column">
+                     <th th:replace="fragments :: column_link('email', 'E-mail', 'tag')" />
                      </th>
                      <th>Roles</th>
 
-                     <th>
+                   <!--  <th>
                          <a class="text-white" th:if="${sortField != 'enabled'}" th:href="@{'/users/page/' +${currentPage} + '?sortField=enabled&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">
                              Enabled?
                          </a>
@@ -119,17 +131,19 @@
                          </a>
                          <span th:if="${sortField == 'enabled'}"
                                th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down' }"></span>
-                     </th>
+                     </th>-->
+                     <th th:replace="fragments :: column_link('enabled', 'Enaled?', 'none')" />
+
                      <th>Action</th>
                  </tr>
             </thead>
             <tbody>
                <tr th:each = "user: ${userList}">
-                   <td>[[${user.idUser}]]</td>
+                   <td >[[${user.idUser}]]</td>
                    <td><span th:if="${user.photo == null}"  class="fas fa-portrait fa-3x icon-dark"></span>
                         <img style="width: 100px" alt="user photo" th:if="${user.photo !=null}" th:src="@{${user.photoImagePath}}"/> </td>
                    <td>[[${user.username}]]</td>
-                   <td>[[${user.email}]]</td>
+                   <td class="hideable-column">[[${user.email}]]</td>
                    <td>[[${user.roles}]]</td>
                    <td><a th:href="@{'/users/' + ${user.idUser} +'/enabled/false'}" title="disable this user"><span th:if="${user.enabled == true}"  class="fas fa-check-circle fa-2x icon-green"></span></a>
                        <a th:href="@{'/users/' + ${user.idUser} +'/enabled/true'}" title="enable this user"><span th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"></span></a>
@@ -140,7 +154,36 @@
             </tbody>
 
         </table>
+          </div>
     </div>
+</div>
+
+<div class="less-details">
+  <div th:each="user : ${userList}" class="row m-1" style="border: solid; border-color: black; border-width: thin">
+      <div class="col-4">
+          <td><span th:if="${user.photo == null}"  class="fas fa-portrait fa-3x icon-dark"></span>
+              <img style="width: 100px" alt="user photo" th:if="${user.photo !=null}" th:src="@{${user.photoImagePath}}"/> </td>
+      </div>
+      <div class="col-5">
+          <div>[[${user.username}]]</div>
+          <div>[[${user.roles}]]</div>
+      </div>
+
+      <div class="col-3 mt-3">
+          <a th:href="@{'/users/' + ${user.idUser} +'/enabled/false'}" title="disable this user" class="fas fa-check-circle fa-2x icon-green" th:if="${user.enabled == true}"></a>
+          <a th:href="@{'/users/' + ${user.idUser} +'/enabled/true'}" title="enable this user" th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"></a>
+
+
+          <a th:href="@{'/users/edit/' +${user.idUser}}" title="Edit this user" class="fas fa-edit fa-2x icon-blue">
+          </a>&nbsp;
+
+          <a th:idUser="${user.idUser}" th:href="@{'/users/delete/' + ${user.idUser}}" title="Delete this user" class="fas fa-trash fa-2x icon-red link-delete"></a>
+
+      </div>
+      <div>&nbsp;</div>
+
+
+  </div>
 </div>
 
    <div class="text-center m-1" th:if="${totalItems > 0}">
@@ -153,14 +196,33 @@
 
  <div th:if="${totalPages > 1}">
      <nav>
-         <ul class="pagination justify-content-center">
-            <li th:class="${currentPage  > 1 ? 'page-item': 'page-item disabled'}"><a class="page-link" th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' +${sortDir} + ${sortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">First</a></li>
+         <ul class="pagination justify-content-center flex-wrap">
+            <li th:class="${currentPage  > 1 ? 'page-item': 'page-item disabled'}">
+                <a class="page-link" th:replace="fragments :: page_link(1, 'First')">
+                    First
+                </a>
+            </li>
 
-             <li th:class="${currentPage > 1 ? 'page-item': 'page-item disabled'}"><a class="page-link" th:href="@{'/users/page/' +${currentPage - 1} +'?sortField=' + ${sortField} + '&sortDir=' +${sortDir} + ${sortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">Previous</a></li>
+             <li th:class="${currentPage > 1 ? 'page-item': 'page-item disabled'}">
+                 <a class="page-link" th:replace="fragments :: page_link(${currentPage-1}, 'Previous')">
+                     Previous
+                 </a>
+             </li>
 
-             <li th:class="${currentPage != i ? 'page-item': 'page-item active' }" th:each="i : ${#numbers.sequence(1, totalPages)}"><a class="page-link"  th:href="@{'/users/page/' +${i} +'?sortField=' + ${sortField} + '&sortDir=' +${sortDir} + ${sortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">[[${i}]]</a></li>
-             <li th:class="${currentPage < totalPages ? 'page-item': 'page-item disabled'}"><a class="page-link" th:href="@{'/users/page/' +${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' +${sortDir} + ${sortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">Next</a></li>
-             <li th:class="${currentPage < totalPages ? 'page-item': 'page-item disabled'}"><a class="page-link" th:href="@{'/users/page/' + ${totalPages} +'?sortField=' + ${sortField} + '&sortDir=' +${sortDir} + ${sortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">Last</a></li>
+             <li th:class="${currentPage != i ? 'page-item': 'page-item active' }" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                 <a class="page-link"  th:replace="fragments :: page_link(${i}, ${i})">[[${i}]]
+                 </a>
+             </li>
+             <li th:class="${currentPage < totalPages ? 'page-item': 'page-item disabled'}">
+                 <a class="page-link" th:replace="fragments :: page_link(${currentPage+1}, 'Next')">
+                 Next
+             </a>
+             </li>
+             <li th:class="${currentPage < totalPages ? 'page-item': 'page-item disabled'}">
+                 <a class="page-link" th:replace="fragments :: page_link(${totalPages}, 'Last')">
+                     Last
+                 </a>
+             </li>
          </ul>
      </nav>
 

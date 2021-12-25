@@ -4,6 +4,7 @@ import com.example.agriweb.exception.UserNotFoundException;
 import com.example.agriweb.models.Role;
 import com.example.agriweb.models.User;
 import com.example.agriweb.services.FileUploadUtil;
+import com.example.agriweb.services.UserCsvExporter;
 import com.example.agriweb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -106,8 +108,14 @@ public class UserController {
         //userService.saveUser(user);
 
          redirectAttributes.addFlashAttribute("message", "user saved successfully");
-        return "redirect:/users";
 
+        return getRedirectUrlToAffectedUser(user);
+
+    }
+
+    private String getRedirectUrlToAffectedUser(User user){
+        String firstPartofEmail = user.getEmail().split("@")[0];
+        return "redirect:/users/page/1?sortField=username&sortDir=asc&keyword=" + firstPartofEmail;
     }
 
     @GetMapping("/users/edit/{idUser}")
@@ -153,6 +161,13 @@ public class UserController {
         return "redirect:/users";
 
 
+    }
+
+    @GetMapping("users/export/csv")
+    public void exportToCSV(HttpServletResponse response) throws IOException {
+        List<User> listUsers = userService.getUserList();
+        UserCsvExporter exporter = new UserCsvExporter();
+      exporter.export(listUsers, response);
     }
 
 }
