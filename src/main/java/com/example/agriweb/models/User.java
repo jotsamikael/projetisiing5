@@ -23,7 +23,7 @@ public class User {
     private String photo;
     private boolean enabled;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns =  @JoinColumn(name = "idUser")
             ,inverseJoinColumns = @JoinColumn(name = "idRole"))

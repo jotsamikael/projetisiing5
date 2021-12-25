@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <title>Login Agriweb</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div class="container-fluid text-center">
+    <div>
+        <img alt="logo agriweb" title="logo" th:src="@{/img/logo.png}" style="max-width: 300px"/>
+    </div>
+    <form th:action="@{/login}" method="post" style="max-width: 400px; margin: 0 auto;">
+       <div th:if="${param.error}" class="border border-danger mb-2">
+           <p class="text-danger" style="font-weight: bold">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+       </div>
+
+        <div th:if="${param.logout}" class="border border-warning mb-2">
+            <p class="text-warning" style="font-weight: bold"> You have been logged out</p>
+        </div>
+
+        <div class="border border-secondary rounded p-3">
+         <p>Acess to AgriWeb control panel</p>
+            <p>
+                <input placeholder="E-mail" class="form-control" type="email" name="email" required>
+            </p>
+
+            <p>
+                <input placeholder="Password" class="form-control" type="password" name="password" required>
+            </p>
+
+            <p>
+                <input  class="btn btn-primary" type="submit" value="login">
+            </p>
+        </div>
+
+    </form>
+
+    <div>
+        <p>Agriweb Control Panel | All rights reserved ©</p>
+    </div>
+</div>
+
+</body>
+</html>

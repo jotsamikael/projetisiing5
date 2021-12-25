@@ -9,4 +9,10 @@ public class AppController {
     public String goHome(){
         return "index";
     }
+
+
+  @GetMapping("/login")
+  public String viewLoginPage(){
+    return "login";
+}
 }

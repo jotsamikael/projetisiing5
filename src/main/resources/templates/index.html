@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="utf-8">
@@ -17,6 +18,9 @@
 <body>
 <div class="container-fluid">
     <div>
+        <form th:action="@{/logout}" name="logoutForm" method="post" th:hidden="true">
+            <input type="submit"/>
+        </form>
 
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg bg-success navbar-light">
@@ -53,6 +57,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
+                    <li>
+                        <span class="fas fa-user fa-2x icon-dark"></span>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" sec:authentication="principal.username"></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" id="logoutLink" href="">Logout</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -63,6 +77,17 @@
         <button class="btn btn-success">goat</button>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#logoutLink").on("click", function (e) {
+            e.preventDefault();
+            document.logoutForm.submit();
+
+        })
+
+    })
+
+</script>
 </body>
 
 </html>
