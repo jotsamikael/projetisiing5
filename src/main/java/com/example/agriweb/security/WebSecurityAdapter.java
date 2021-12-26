@@ -49,7 +49,9 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter {
                   .loginPage("/login")
                     .defaultSuccessUrl("/",true)
                    .permitAll()
-                     .and().logout().permitAll();
+                     .and().logout().permitAll()
+                      .and().rememberMe().key("AgriWeb")
+       .tokenValiditySeconds(1*24*60*60); //one day in seconds
 
 
     }

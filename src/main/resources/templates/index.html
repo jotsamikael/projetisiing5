@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head>
-    <meta charset="utf-8">
+<head th:replace="fragments :: page_head('Home - AgriWeb')" />
+ <!--   <meta charset="utf-8">
 
 
     <title>AgriWeb</title>
@@ -12,28 +12,27 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-</head>
+-->
 
 <body>
 <div class="container-fluid">
-    <div>
+   <!-- <div>
         <form th:action="@{/logout}" name="logoutForm" method="post" th:hidden="true">
             <input type="submit"/>
         </form>
 
-        <!--Navbar-->
+        &lt;!&ndash;Navbar&ndash;&gt;
         <nav class="navbar navbar-expand-lg bg-success navbar-light">
-            <!-- Brand -->
+            &lt;!&ndash; Brand &ndash;&gt;
             <a class="navbar-brand" th:href="@{/}">
                 <img th:src="@{/img/agriweblogo.png}" alt="app-logo" style="width:25%;"/>
             </a>
-            <!-- Toggler/collapsibe Button -->
+            &lt;!&ndash; Toggler/collapsibe Button &ndash;&gt;
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Navbar links -->
+            &lt;!&ndash; Navbar links &ndash;&gt;
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -70,22 +69,26 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 </ul>
             </div>
         </nav>
-        <!--/.Navbar-->
-    </div>
-    <div>
+        &lt;!&ndash;/.Navbar&ndash;&gt;
+    </div>-->
+    <div th:replace="navigation :: menu"></div>
+    <div class="text-center">
         <h1>welcome to Agriweb</h1>
         <button class="btn btn-success">goat</button>
     </div>
+
+    <div th:replace="fragments :: footer"></div>
+
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
+  /*  $(document).ready(function () {
         $("#logoutLink").on("click", function (e) {
             e.preventDefault();
             document.logoutForm.submit();
 
         })
 
-    })
+    })*/
 
 </script>
 </body>

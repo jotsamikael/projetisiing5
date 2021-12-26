@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
-<head>
+<head th:replace="fragments :: page_head('Users - Agriweb Admin')"/>
+<!--<head>
     <meta charset="utf-8">
 
 
@@ -14,23 +15,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-</head>
+</head>-->
 
 <body>
 <div class="container-fluid">
-    <div>
-        <!--Navbar-->
+    <!--<div>
+        &lt;!&ndash;Navbar&ndash;&gt;
         <nav class="navbar navbar-expand-lg bg-success navbar-light">
-            <!-- Brand -->
+            &lt;!&ndash; Brand &ndash;&gt;
             <a class="navbar-brand" th:href="@{/}">
                 <img th:src="@{/img/agriweblogo.png}" alt="app-logo" style="width:25%;"/>
             </a>
-            <!-- Toggler/collapsibe Button -->
+            &lt;!&ndash; Toggler/collapsibe Button &ndash;&gt;
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Navbar links -->
+            &lt;!&ndash; Navbar links &ndash;&gt;
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -57,8 +58,9 @@
                 </ul>
             </div>
         </nav>
-        <!--/.Navbar-->
-    </div>
+        &lt;!&ndash;/.Navbar&ndash;&gt;
+    </div>-->
+    <div th:replace="navigation :: menu"></div>
     <div>
         <h2>Manage Users</h2>
         <a class="fas fa-user-plus fa-3x icon-dark m-4" th:href="@{/users/new}"></a>
@@ -159,7 +161,7 @@
 </div>
 
 <div class="less-details">
-  <div th:each="user : ${userList}" class="row m-1" style="border: solid; border-color: black; border-width: thin">
+  <div th:each="user : ${userList}" class="row m-1 border border-secondary rounded">
       <div class="col-4">
           <td><span th:if="${user.photo == null}"  class="fas fa-portrait fa-3x icon-dark"></span>
               <img style="width: 100px" alt="user photo" th:if="${user.photo !=null}" th:src="@{${user.photoImagePath}}"/> </td>
@@ -255,11 +257,14 @@
 
 <!-- Modal popup-->
 
+<!--
 <footer class="footer bg-dark">
     <div class="text-center">
         <p class="text-white">Made with ♥ by Group xx || All rights reserved &copy; Agriweb 2022</p>
     </div>
 </footer>
+-->
+<div th:replace="fragments :: footer"></div>
 
 <script type="text/javascript">
     $(document).ready(function () {

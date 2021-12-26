@@ -58,4 +58,8 @@ public class AgriwebUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.isEnabled();
     }
+
+    public void setUsername(String username){
+        this.user.setUsername(username);
+    }
 }
