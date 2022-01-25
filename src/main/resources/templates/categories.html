@@ -17,7 +17,6 @@
 
         <div th:if="${message!= null}" class="alert alert-success text-center">
             [[${message}]]
-
         </div>
 
         <div>
@@ -53,10 +52,15 @@
                 <tbody>
                 <tr th:each = "category: ${listCategories}">
 
-                    <td>[[${category.image}]]</td>
+                    <td>
+                        <img th:src="@{${category.imagePath}}" width="100px"/>
+                    </td>
                     <td>[[${category.name}]]</td>
                     <td>[[${category.alias}]]</td>
-                    <td>[[${category.enabled}]]</td>
+<!--                    <td>[[${category.enabled}]]</td>-->
+                    <td><a th:href="@{'/category/' + ${category.idCategory} +'/enabled/false'}" title="disable this category"><span th:if="${category.enabled == true}"  class="fas fa-check-circle fa-2x icon-green"></span></a>
+                        <a th:href="@{'/category/' + ${category.idCategory} +'/enabled/true'}" title="enable this category"><span th:if="${category.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"></span></a>
+                    </td>
 
                    <!-- <td>
                         <div th:replace="fragments :: category_status"/>

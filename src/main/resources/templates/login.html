@@ -12,14 +12,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-</head>
-<body>
 
-<div class="container-fluid text-center">
+
+</head>
+
+<body th:style="'background:url('+ @{/img/fond-agriweb.png} +') no-repeat center center fixed;
+ background-size: cover;'">
+
+
+<div class="container-fluid text-center" >
     <div>
-        <img alt="logo agriweb" title="logo" th:src="@{/img/logo.png}" style="max-width: 300px"/>
+        <img alt="logo agriweb" title="logo" th:src="@{/img/agriweblogo.png}" style="max-width: 300px"/>
     </div>
-    <form th:action="@{/login}" method="post" style="max-width: 400px; margin: 0 auto;">
+    <form th:action="@{/login}" method="post" style="max-width: 400px; color: white; font-weight: bold; margin: 0 auto; border: solid; border-color: #3b3b1f; border-width: thick">
        <div th:if="${param.error}" class="border border-danger mb-2">
            <p class="text-danger" style="font-weight: bold">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
        </div>
@@ -50,9 +55,10 @@
     </form>
 
     <div>
-        <p>Agriweb Control Panel | All rights reserved ©</p>
+        <p style="color: white; font-weight: bold;">Agriweb Control Panel | All rights reserved ©</p>
     </div>
 </div>
 
 </body>
+
 </html>
