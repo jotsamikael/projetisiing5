@@ -221,14 +221,13 @@
             if(response == "OK"){
                 form.submit();
             } else if(response == "DUPLICATED") {
-                showModalDialog("Attention!",
-                "There is another user with the email:" + userEmail);
+                showarningrModal("There is another user with the email:" + userEmail);
             } else{
-                showModalDialog("Error", "Unknown response from server");
+                showErrorModal("Unknown response from server");
             }
 
         }).fail(function () {
-            showModalDialog("Error", "Could not connect to the server server");
+            showErrorModal("Could not connect to the server server");
 
 
         });
@@ -240,7 +239,15 @@
         $("#modalBody").text(message);
         $("#modalDialog").modal();
 
+    }
 
+    function showErrorModal(message) {
+        showModalDialog("Error", message)
+
+    }
+
+    function showarningrModal(message) {
+        showModalDialog("Warning", message)
 
     }
 </script>

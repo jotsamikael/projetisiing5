@@ -69,8 +69,8 @@
                         <div th:replace="fragments :: category_actions"/>
                     </td>-->
                     </td>
-                    <td><a th:href="@{'/category/edit/' +${category.idCategory}}" title="Edit this user" class="btn btn-primary"><span class="fas fa-edit"></span>
-                    </a>&nbsp;<a th:idCategory="${category.idCategory}" th:href="@{'/category/delete/' + ${category.idCategory}}" title="Delete this user" class="btn btn-danger link-delete"><span class="fas fa-remove"></span></a></td>
+                    <td><a th:href="@{'/categories/edit/' +${category.idCategory}}" title="Edit this user" class="btn btn-primary"><span class="fas fa-edit"></span>
+                    </a>&nbsp;<a th:idCategory="${category.idCategory}" th:href="@{'/categories/delete/' + ${category.idCategory}}" title="Delete this user" class="btn btn-danger link-delete"><span class="fas fa-remove"></span></a></td>
                 </tr>
                 </tbody>
 

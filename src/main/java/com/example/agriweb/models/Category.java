@@ -83,8 +83,13 @@ public class Category {
     public Category(String name, Category parent) {
         this(name);
         this.parent = parent;
+    }
 
-
+    public Category(Long idCategory, String name, String alias) {
+        super();
+        this.idCategory = idCategory;
+        this.name = name;
+        this.alias = alias;
     }
 
     public Long getIdCategory() {
@@ -145,6 +150,7 @@ public class Category {
 
     @Transient
     public String getImagePath(){
+        if(this.idCategory == null) return  "/img/image-preview.jpg";
          return "/category-image/" +this.idCategory + "/" +this.image;
     }
 }

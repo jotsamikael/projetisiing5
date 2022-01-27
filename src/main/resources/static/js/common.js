@@ -21,4 +21,22 @@ function customizeDropDownMenu() {
     $(".dropdown > a").click(function () {
         location.href = this.href;
     });
+
+    /* Modal popup handeling*/
+    function showModalDialog(title, message) {
+        $("#modalTitle").text(title);
+        $("#modalBody").text(message);
+        $("#modalDialog").modal();
+
+    }
+
+    function showErrorModal(message) {
+        showModalDialog("Error", message)
+
+    }
+
+    function showarningrModal(message) {
+        showModalDialog("Warning", message)
+
+    }
 }

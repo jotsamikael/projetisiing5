@@ -230,7 +230,7 @@
 
  </div>
 
-<!-- Modal popup-->
+<!-- Modal popup--><!--
 <div class="modal fade text-center" id="confirmModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -253,17 +253,12 @@
 
     </div>
 
-</div>
+</div>-->
 
 <!-- Modal popup-->
+<div th:replace="modal_fragment :: modal_dialog"></div>
 
-<!--
-<footer class="footer bg-dark">
-    <div class="text-center">
-        <p class="text-white">Made with ♥ by Group xx || All rights reserved &copy; Agriweb 2022</p>
-    </div>
-</footer>
--->
+
 <div th:replace="fragments :: footer"></div>
 
 <script type="text/javascript">

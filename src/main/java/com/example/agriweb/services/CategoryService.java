@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Service
@@ -95,6 +96,40 @@ public class CategoryService {
             listSubCategoriesUsedInForm(categoriesUsedInForm,subCategory, newSubLevel);
 
         }
+
+    }
+
+    public Category get(Long idCategory) throws CategoryNotFoundException{
+        try{
+            return categoryRepo.findById(idCategory).get();
+        } catch (NoSuchElementException ex) {
+            throw new CategoryNotFoundException("Could not find any category with id:" +idCategory);
+        }
+    }
+
+    public String checkUnique(Long idCategory, String name, String alias){
+        boolean isCreatingNew = (idCategory == null || idCategory == 0);
+        Category categoryByName =  categoryRepo.findByName(name);
+          if(isCreatingNew){
+              if(categoryByName != null){
+                  return "DuplicateName";
+              } else {
+                  Category categoryByAlias = categoryRepo.findByAlias(alias);
+                  if(categoryByAlias != null) {
+                     return  "DuplicateAlias";
+                  }
+              }
+          } else {
+              if(categoryByName != null && categoryByName.getIdCategory() != idCategory){
+                  return "DuplicateName";
+              }
+              Category categoryByAlias = categoryRepo.findByAlias(alias);
+               if(categoryByAlias != null && categoryByAlias.getIdCategory() != idCategory){
+                   return "DuplicateAlias";
+               }
+          }
+
+        return  "OK";
 
     }
 }
