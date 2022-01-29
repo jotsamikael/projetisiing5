@@ -43,10 +43,14 @@
                 <thead class="thead-dark">
                 <tr>
                     <th>Image</th>
-                    <th>Name</th>
+                    <th>
+                        <a class="text-white" th:href="@{'/categories?sortDir='+ ${reverseSortDir}}">Name</a>
+                        <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down' }"></span>
+                    </th>
                     <th>Alias</th>
                     <th>Enabled</th>
-                    <th>Actions</th>
+                    <th> </th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -55,30 +59,52 @@
                     <td>
                         <img th:src="@{${category.imagePath}}" width="100px"/>
                     </td>
+
                     <td>[[${category.name}]]</td>
+
                     <td>[[${category.alias}]]</td>
-<!--                    <td>[[${category.enabled}]]</td>-->
-                    <td><a th:href="@{'/category/' + ${category.idCategory} +'/enabled/false'}" title="disable this category"><span th:if="${category.enabled == true}"  class="fas fa-check-circle fa-2x icon-green"></span></a>
-                        <a th:href="@{'/category/' + ${category.idCategory} +'/enabled/true'}" title="enable this category"><span th:if="${category.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"></span></a>
+
+
+                   <td>
+                        <div th:replace="fragments :: category_status "/>
                     </td>
 
-                   <!-- <td>
-                        <div th:replace="fragments :: category_status"/>
-                    </td>
                     <td>
                         <div th:replace="fragments :: category_actions"/>
-                    </td>-->
                     </td>
-                    <td><a th:href="@{'/categories/edit/' +${category.idCategory}}" title="Edit this user" class="btn btn-primary"><span class="fas fa-edit"></span>
-                    </a>&nbsp;<a th:idCategory="${category.idCategory}" th:href="@{'/categories/delete/' + ${category.idCategory}}" title="Delete this user" class="btn btn-danger link-delete"><span class="fas fa-remove"></span></a></td>
+
+                    </td>
+
                 </tr>
                 </tbody>
 
             </table>
         </div>
+
+        <div th:replace="modal_fragment :: confirm_modal" />
+
+
         <div th:replace="fragments :: footer"></div>
     </div>
 </div>
+
+<script th:src="@{/js/common_list.js}"></script>
+
+<script type="text/javascript">
+    moduleUrl = "[[@{/categories}]]";
+
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), 'category');
+
+        });
+
+    });
+
+</script>
+
+
 
 </body>
 

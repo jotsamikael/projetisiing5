@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.logging.Logger;
+
+import static org.hibernate.bytecode.enhance.spi.interceptor.BytecodeInterceptorLogging.LOGGER;
 
 public class FileUploadUtil {
 
@@ -40,6 +43,15 @@ public class FileUploadUtil {
             });
         } catch (IOException e) {
             System.out.println("Could not list directory:" +dirPath);
+        }
+    }
+
+    public static void removeDir(String dir){
+        cleanDir(dir);
+        try{
+            Files.delete(Paths.get(dir));
+        } catch (IOException e) {
+            LOGGER.error("Could nor remove directory:" +dir);
         }
     }
 }

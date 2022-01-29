@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
@@ -84,7 +85,7 @@ public class CategoryRepoTesst {
 
     @Test
     public void testListRootCategory(){
-        List<Category> rootCategories = categoryRepo.findRootCategory();
+        List<Category> rootCategories = categoryRepo.findRootCategory(Sort.by("name").ascending());
         rootCategories.forEach(category -> System.out.println(category.getName()));
     }
 
