@@ -19,24 +19,7 @@
             [[${message}]]
         </div>
 
-        <div>
-            <form th:action="@{/categories/page/1}" class="form-inline m-3">
-                <input type="hidden" name="sortField" th:value="${sortField}"/>
-                <input type="hidden" name="sortDir" th:value="${sortDir}"/>
-
-                Filter:&nbsp;
-                <input type="search" name="keyword" th:value="${keyword}" required class="form-control"/>
-                &nbsp;&nbsp;
-                <button type="submit"  class="btn btn-success" >
-                    <i class="fas fa-search"></i>
-                </button>
-                &nbsp;&nbsp;
-                <button type="button" class="btn btn-secondary" onclick="clearFilter()" >
-                    <i class="fas fa-eraser"></i>
-                </button>
-
-            </form>
-        </div>
+       <div th:replace="fragments :: search_form('/categories/page/1')"/>
 
         <div class="full-details">
             <table class="table table-responsive-xl table-striped table-bordered table-hover">
@@ -44,7 +27,7 @@
                 <tr>
                     <th>Image</th>
                     <th>
-                        <a class="text-white" th:href="@{'/categories?sortDir='+ ${reverseSortDir}}">Name</a>
+                        <a class="text-white" th:href="@{'/categories/page/' + ${currentPage} + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">Name</a>
                         <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down' }"></span>
                     </th>
                     <th>Alias</th>
@@ -80,6 +63,16 @@
 
             </table>
         </div>
+
+        <div th:if="${keyword != null}" class="text-center">
+            <span style="font-weight: 600">Search result does not show categories in hierarchical form</span>
+            <div th:replace="fragments :: pagination('/categories', 'categories')"></div>
+        </div>
+
+        <th:block th:unless="${keyword != null}"></th:block>
+        <div th:replace="fragments :: pagination('/categories', 'top-level categories')"></div>
+
+
 
         <div th:replace="modal_fragment :: confirm_modal" />
 

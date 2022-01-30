@@ -25,17 +25,47 @@ public class CategoryContoller {
     private CategoryService categoryService;
 
     @GetMapping("/categories")
-    public String listAll(@Param("sortDir") String sortDir,Model model){
+    public String listFirst(@Param("sortDir") String sortDir,Model model){
+
+        return listByPage(1,sortDir, null, model);
+    }
+
+    @GetMapping("/categories/page/{pageNum}")
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum,
+                             @Param("sortDir") String sortDir, @Param("keyword") String keyword,Model model){
         if(sortDir == null || sortDir.isEmpty()){
             sortDir ="asc";
 
         }
-        List<Category> categoryList = categoryService.listAllCategory(sortDir);
-        model.addAttribute("listCategories",categoryList);
+        CategoryPageInfo pageInfo = new CategoryPageInfo();
+        List<Category> categoryList = categoryService.listAllCategoryByPage(pageInfo, pageNum, sortDir, keyword);
+
+        long startCount = (pageNum - 1) * categoryService.ROOT_CATEGORIES_PER_PAGE + 1;
+        long endCount = startCount +  categoryService.ROOT_CATEGORIES_PER_PAGE - 1;
+        if(endCount > pageInfo.getTotalElements()){
+            endCount = pageInfo.getTotalElements();
+        }
+
+
         String reverseSortDir = sortDir.equals("asc") ? "desc": "asc";
+
+        model.addAttribute("totalPages",pageInfo.getTotalPages());
+        model.addAttribute("totalItems", pageInfo.getTotalElements());
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("sortField", "name");
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+
+
+
+        model.addAttribute("listCategories",categoryList);
         model.addAttribute("reverseSortDir",reverseSortDir);
         return "categories";
+
     }
+
 
     @GetMapping("/categories/new")
     public String newCategory(Model model){

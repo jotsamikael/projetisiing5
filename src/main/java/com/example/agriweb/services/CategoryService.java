@@ -1,8 +1,12 @@
 package com.example.agriweb.services;
 
+import com.example.agriweb.controllers.CategoryPageInfo;
 import com.example.agriweb.models.Category;
 import com.example.agriweb.repositories.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,12 +16,14 @@ import java.util.*;
 @Service
 @Transactional
 public class CategoryService {
+    public static final int ROOT_CATEGORIES_PER_PAGE = 4;
 
     @Autowired
     private CategoryRepo categoryRepo;
 
 
-    public List<Category> listAllCategory(String sortDir){
+    public List<Category> listAllCategoryByPage(CategoryPageInfo categoryPageInfo, int pageNum, String sortDir
+    , String keyword){
        Sort sort= Sort.by("name");
 
        if(sortDir.equals("asc")){
@@ -25,9 +31,32 @@ public class CategoryService {
        } else if(sortDir.equals("desc")){
           sort= sort.descending();
        }
+        Pageable pageable = PageRequest.of(pageNum - 1, ROOT_CATEGORIES_PER_PAGE, sort);
 
-      List<Category> rootCategories =  categoryRepo.findRootCategory(sort);
-    return listHierarchicalCategories(rootCategories, sortDir);
+        Page<Category> pageCategories = null;
+
+       if(keyword != null && !keyword.isEmpty()){
+             pageCategories =  categoryRepo.search(keyword, pageable);
+        } else {
+
+            pageCategories = categoryRepo.findRootCategory(pageable);
+       }
+        List<Category>  rootCategories=  pageCategories.getContent();
+
+        categoryPageInfo.setTotalElements(pageCategories.getTotalElements());
+        categoryPageInfo.setTotalPages(pageCategories.getTotalPages());
+
+        if(keyword != null && !keyword.isEmpty()){
+            List<Category>  searchResult =  pageCategories.getContent();
+            for(Category category : searchResult){
+                category.setHasChildren(category.getChildren().size() > 0);
+            }
+            return searchResult;
+
+        } else {
+
+            return listHierarchicalCategories(rootCategories, sortDir);
+        }
     }
 
     private  List<Category> listHierarchicalCategories(List<Category> rootCategories, String sortDir){

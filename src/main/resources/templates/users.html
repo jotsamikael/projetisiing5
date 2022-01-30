@@ -188,7 +188,10 @@
   </div>
 </div>
 
-   <div class="text-center m-1" th:if="${totalItems > 0}">
+
+<div th:replace="fragments :: pagination('/users', 'users')"></div>
+
+   <!--<div class="text-center m-1" th:if="${totalItems > 0}">
          <span > Showing users #[[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
    </div>
 
@@ -228,7 +231,7 @@
          </ul>
      </nav>
 
- </div>
+ </div>-->
 
 <!-- Modal popup--><!--
 <div class="modal fade text-center" id="confirmModal">
