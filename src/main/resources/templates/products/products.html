@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head th:replace="fragments :: page_head('Products - Agriweb Admin', 'none')"/>
+
+
+<body>
+<div class="container-fluid">
+
+    <div th:replace="navigation :: menu"></div>
+    <div>
+        <h2>Manage Products</h2>
+        <a class="fas fa-user-plus fa-3x icon-dark m-4" th:href="@{/products/new}"></a>
+        &nbsp;|&nbsp;
+        <a class="fas fa-file-csv fa-3x icon-green m-4" th:href="@{/products/export/csv}"></a>
+
+
+        <div th:if="${message!= null}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+
+        <div th:replace="fragments :: search_form('/products/page/1')"/>
+
+        <div class="full-details">
+            <table class="table table-responsive-xl table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th class="hideable-column">Alias</th>
+                    <th>Category</th>
+                    <th>Enabled</th>
+
+
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each = "product: ${listProducts}">
+
+                    <td>
+
+                    </td>
+
+                    <td>[[${product.nameProduct}]]</td>
+
+                    <td class="hideable-column">[[${product.alias}]]</td>
+                    <td>[[${product.category.name}]]</td>
+
+
+                    <td>
+                        <div th:replace="fragments :: product_status "/>
+                    </td>
+
+                    <td>
+                        <a class="fas fa-file-alt fa-2x icon-green"
+                        th:href="@{'/products/detail/' + ${product.idProduct}}"
+                        title="view details of this product"></a>
+                        &nbsp;
+
+                        <div th:replace="fragments :: product_actions"/>
+                    </td>
+
+                    </td>
+
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+
+
+
+
+        <div th:replace="fragments :: footer"></div>
+    </div>
+</div>
+
+<script th:src="@{/js/common_list.js}"></script>
+
+<script type="text/javascript">
+    moduleUrl = "[[@{/categories}]]";
+
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), 'category');
+
+        });
+
+    });
+
+</script>
+
+
+
+</body>
+
+</html>

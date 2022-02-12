@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
-<head th:replace="fragments :: page_head('Categories - Agriweb Admin')"/>
+<head th:replace="fragments :: page_head('Categories - Agriweb Admin', 'none)"/>
 
 
 <body>
@@ -26,11 +26,14 @@
                 <thead class="thead-dark">
                 <tr>
                     <th>Image</th>
-                    <th>
-                        <a class="text-white" th:href="@{'/categories/page/' + ${currentPage} + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">Name</a>
-                        <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down' }"></span>
-                    </th>
-                    <th>Alias</th>
+
+                    <!--    <a class="text-white" th:href="@{'/categories/page/' + ${currentPage} + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">Name</a>
+                        <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down' }"></span> -->
+
+                       <th th:replace="fragments :: column_link('/categories','name', 'Name', 'none')" />
+
+
+                    <th class="hideable-column">Alias</th>
                     <th>Enabled</th>
                     <th> </th>
 
@@ -45,7 +48,7 @@
 
                     <td>[[${category.name}]]</td>
 
-                    <td>[[${category.alias}]]</td>
+                    <td class="hideable-column">[[${category.alias}]]</td>
 
 
                    <td>
@@ -62,6 +65,25 @@
                 </tbody>
 
             </table>
+        </div>
+
+
+        <div class="less-details">
+            <div th:each="category: ${listCategories}" class="row m-1">
+                <div class="col-4">
+                    <img th:src="@{${category.imagePath}}" style="width: 100px"  class="img-fluid"/>
+                </div>
+                <div class="col-8">
+                    <div>[[${category.name}]]</div>
+                    <div class="mt-2">
+                        <div th:replace="fragments :: category_status "/>
+                         &nbsp;
+                        <div th:replace="fragments :: category_actions"/>
+                    </div>
+
+                </div>
+                  <div>&nbsp;</div>
+            </div>
         </div>
 
         <div th:if="${keyword != null}" class="text-center">

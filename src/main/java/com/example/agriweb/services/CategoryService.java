@@ -21,6 +21,10 @@ public class CategoryService {
     @Autowired
     private CategoryRepo categoryRepo;
 
+    public List<Category> getAllCategories(){
+      List<Category> listCategory = (List<Category>) categoryRepo.findAll();
+      return listCategory;
+    }
 
     public List<Category> listAllCategoryByPage(CategoryPageInfo categoryPageInfo, int pageNum, String sortDir
     , String keyword){

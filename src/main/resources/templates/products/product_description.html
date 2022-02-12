@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+
+
+<body>
+
+<div th:fragment="content" th:remove="tag">
+    <div class="m-2">
+        <label>Short Description</label>
+        <textarea id="shortDescription" class="form-control" th:field="*{shortDescription}" rows="5" required></textarea>
+    </div>
+
+    <div>
+        <label>Short Description</label>
+        <textarea id="fullDescription" class="form-control" th:field="*{fullDescription}" rows="10" required></textarea>
+    </div>
+</div>
+
+
+
+</body>
+
+</html>

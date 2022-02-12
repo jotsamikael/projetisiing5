@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head th:fragment="page_head(title)">
+
+
+    <head th:fragment="page_head(title, remove)" th:remove="${remove}">
+
+
     <meta charset="utf-8">
     <title>[[${title}]]</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -14,8 +18,8 @@
 
 </head>
 <body>
-<th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
-    <a class="text-white"  th:href="@{'/users/page/' +${currentPage} + '?sortField='+ ${fieldName} +'&sortDir=' +${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">
+<th th:fragment="column_link(moduleURL, fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
+    <a class="text-white"  th:href="@{${moduleURL} + '/page/' +${currentPage} + '?sortField='+ ${fieldName} +'&sortDir=' +${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">
         [[${columnLabel}]]
     </a>
 
@@ -25,6 +29,25 @@
 
   <a th:fragment="page_link(moduleURL, pageNum, label)" class="page-link" th:href="@{${moduleURL} + '/page/' + ${pageNum} +'?sortField=' + ${sortField} +'&sortDir=' +${sortDir}+ ${keyboard != null ? '&keyword=' +keyword : ''}}">[[${label}]]</a>
 
+
+<!--                         enable or disable product  -->
+
+<div th:fragment="product_status" th:remove="tag">
+    <a th:if="${product.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+       th:href="@{'/products/' +${product.idProduct} + '/enabled/false'}"
+       title="Disable this product">
+    </a>
+
+    <a th:if="${product.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"
+       th:href="@{'/products/' +${product.idProduct} + '/enabled/true'}"
+       title="Enable this product">
+    </a>
+</div>
+
+
+
+
+<!--                         enable or disable category-->
   <div th:fragment="category_status" th:remove="tag">
        <a th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
        th:href="@{'/categories/' +${category.idCategory} + '/enabled/false'}"
@@ -36,6 +59,27 @@
          title="Enable this category">
       </a>
   </div>
+
+
+<!-- Edit & delete product fragments-->
+<div  th:fragment="product_actions" th:remove="tag">
+    <a  class="fas fa-edit fa-2x icon-green"
+        th:href="@{'/products/edit/' + ${product.idProduct}}"
+        title="Edit this product"></a>
+    &nbsp;
+    <th:block>
+        <a  class="fas fa-trash fa-2x icon-red link-delete"
+            th:href="@{'/products/delete/' + ${product.idProduct}}"
+            th:entityId="${product.idProduct}"
+            title="Delete this product"></a>
+    </th:block>
+</div>
+
+
+
+
+
+
 
 <!-- Edit & delete category fragments-->
 <div  th:fragment="category_actions" th:remove="tag">

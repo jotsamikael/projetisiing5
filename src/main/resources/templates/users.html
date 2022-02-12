@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
-<head th:replace="fragments :: page_head('Users - Agriweb Admin')"/>
+<head th:replace="fragments :: page_head('Users - Agriweb Admin', 'none')"/>
 <!--<head>
     <meta charset="utf-8">
 
@@ -98,7 +98,7 @@
                  <tr>
                      <th>User's ID</th>
                      <th>Photo</th>
-                     <th th:replace="fragments :: column_link('username', 'Username', 'none')" />
+                     <th th:replace="fragments :: column_link('/users','username', 'Username', 'none')" />
                      <!--<th>
                         <a class="text-white" th:if="${sortField != 'username'}" th:href="@{'/users/page/' +${currentPage} + '?sortField=username&sortDir=' + ${sortDir}+ ${keyword != null ? '&keyword=' +keyword: '' }}">
                             Username
@@ -120,7 +120,7 @@
                                th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down' }"></span>
                      </th>-->
                      <th class="hideable-column">
-                     <th th:replace="fragments :: column_link('email', 'E-mail', 'tag')" />
+                     <th th:replace="fragments :: column_link('/users','email', 'E-mail', 'tag')" />
                      </th>
                      <th>Roles</th>
 
@@ -134,7 +134,7 @@
                          <span th:if="${sortField == 'enabled'}"
                                th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down' }"></span>
                      </th>-->
-                     <th th:replace="fragments :: column_link('enabled', 'Enaled?', 'none')" />
+                     <th th:replace="fragments :: column_link('/users', 'enabled', 'Enaled?', 'none')" />
 
                      <th>Action</th>
                  </tr>
@@ -161,7 +161,7 @@
 </div>
 
 <div class="less-details">
-  <div th:each="user : ${userList}" class="row m-1 border border-secondary rounded">
+  <div th:each="user : ${userList}" class="row m-1 border border-secondary  rounded" style="background-color: rgba(211,211,211,0.22)">
       <div class="col-4">
           <td><span th:if="${user.photo == null}"  class="fas fa-portrait fa-3x icon-dark"></span>
               <img style="width: 100px" alt="user photo" th:if="${user.photo !=null}" th:src="@{${user.photoImagePath}}"/> </td>
