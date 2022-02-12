@@ -40,7 +40,7 @@
                 <tr th:each = "product: ${listProducts}">
 
                     <td>
-
+                        <img th:src="@{${product.mainImagePath}}" class="img-fluid" style="width: 120px"/>
                     </td>
 
                     <td>[[${product.nameProduct}]]</td>
@@ -71,7 +71,7 @@
         </div>
 
 
-
+        <div th:replace="modal_fragment :: confirm_modal" />
 
 
         <div th:replace="fragments :: footer"></div>
@@ -81,12 +81,12 @@
 <script th:src="@{/js/common_list.js}"></script>
 
 <script type="text/javascript">
-    moduleUrl = "[[@{/categories}]]";
+    moduleUrl = "[[@{/products}]]";
 
     $(document).ready(function () {
         $(".link-delete").on("click", function (e) {
             e.preventDefault();
-            showDeleteConfirmModal($(this), 'category');
+            showDeleteConfirmModal($(this), 'product');
 
         });
 

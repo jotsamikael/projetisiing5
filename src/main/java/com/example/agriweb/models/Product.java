@@ -4,6 +4,8 @@ import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -40,9 +42,16 @@ public class Product {
     private float discountPercent;
     private float quantity;
 
+    @Column(name= "main_image" , nullable = false)
+    private String mainImage;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<ProductImage> images = new HashSet<>();
+
     @ManyToOne
     @JoinColumn(name = "id_category")
     private Category category;
+
 
 
     public Long getIdProduct() {
@@ -149,6 +158,33 @@ public class Product {
         this.category = category;
     }
 
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
+
+    public Set<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<ProductImage> images) {
+        this.images = images;
+    }
+
+    public void  addExtraImage(String imageName){
+        this.images.add(new ProductImage(imageName, this));
+    }
+
+    @Transient
+    public String getMainImagePath(){
+        if(idProduct == null || mainImage == null) return "/img/image-preview.jpg";
+        return "product-images/" +this.idProduct + "/" +this.mainImage;
+
+    }
     @Override
     public String toString() {
         return "Product{" +

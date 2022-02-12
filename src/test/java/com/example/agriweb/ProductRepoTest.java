@@ -84,4 +84,20 @@ public class ProductRepoTest {
 
 
     }
+
+    @Test
+    public void testSaveProductWithImages(){
+        Long idProduct = (long) 8;
+        Product product = productRepo.findById(idProduct).get();
+
+        product.setMainImage("main image.jpg");
+        product.addExtraImage("extra1.png");
+        product.addExtraImage("extra2.png");
+        product.addExtraImage("extra3.png");
+
+       Product savedProduct = productRepo.save(product);
+       assertThat(savedProduct.getImages().size()).isEqualTo(3);
+
+
+    }
 }
