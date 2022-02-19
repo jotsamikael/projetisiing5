@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="fragments :: page_head('Products - Agriweb Admin', 'none')"/>
 
@@ -10,9 +11,14 @@
     <div th:replace="navigation :: menu"></div>
     <div>
         <h2>Manage Products</h2>
-        <a class="fas fa-user-plus fa-3x icon-dark m-4" th:href="@{/products/new}"></a>
-        &nbsp;|&nbsp;
+
+        <th:block sec:authorize="hasAnyAuthority('admin')">
+            <a class="fas fa-folder-plus fa-3x icon-dark m-4" th:href="@{/products/new}"></a>
+            |
+        </th:block>
+        &nbsp;
         <a class="fas fa-file-csv fa-3x icon-green m-4" th:href="@{/products/export/csv}"></a>
+
 
 
         <div th:if="${message!= null}" class="alert alert-success text-center">
@@ -25,12 +31,24 @@
             <table class="table table-responsive-xl table-striped table-bordered table-hover">
                 <thead class="thead-dark">
                 <tr>
-                    <th>Image</th>
-                    <th>Product Name</th>
-                    <th class="hideable-column">Alias</th>
-                    <th>Category</th>
-                    <th>Enabled</th>
+                    <th th:replace="fragments :: column_link('/products','idProduct', 'ID', 'none')" />
+                    <th>Main Image</th>
+                    <th th:replace="fragments :: column_link('/products','nameProduct', 'Product Name', 'none')" />
 
+                    <th class="hideable-column">Alias</th>
+
+                    <th:block sec:authorize="hasAnyAuthority('editor')">
+                    <th>Cost</th>
+                    </th:block>
+
+                    <th:block sec:authorize="hasAnyAuthority('editor')">
+                    <th>In Stock</th>
+                    </th:block>
+
+
+                    <th:block sec:authorize="hasAnyAuthority('admin')">
+                    <th>Enabled</th>
+                    </th:block>
 
                     <th></th>
 
@@ -38,23 +56,38 @@
                 </thead>
                 <tbody>
                 <tr th:each = "product: ${listProducts}">
+                    <td>[[${product.idProduct}]]</td>
 
                     <td>
-                        <img th:src="@{${product.mainImagePath}}" class="img-fluid" style="width: 120px"/>
+                        <img  th:src="@{${product.mainImagePath}}" class="img-fluid" style="width: 120px"/>
                     </td>
 
                     <td>[[${product.nameProduct}]]</td>
 
                     <td class="hideable-column">[[${product.alias}]]</td>
-                    <td>[[${product.category.name}]]</td>
+
+
+                    <th:block sec:authorize="hasAnyAuthority('editor')">
+                    <td>[[${product.cost}]]</td>
+                    </th:block>
+
+                    <th:block sec:authorize="hasAnyAuthority('editor')">
+                    <td>[[${product.quantity}]]</td>
+                    </th:block>
+
+
+
+
+                    <th:block sec:authorize="hasAnyAuthority('admin')">
+                        <td>
+                            <div th:replace="fragments :: product_status "/>
+                        </td>
+                    </th:block>
+
 
 
                     <td>
-                        <div th:replace="fragments :: product_status "/>
-                    </td>
-
-                    <td>
-                        <a class="fas fa-file-alt fa-2x icon-green"
+                        <a class="fas fa-file-alt fa-2x icon-green link-detail"
                         th:href="@{'/products/detail/' + ${product.idProduct}}"
                         title="view details of this product"></a>
                         &nbsp;
@@ -73,6 +106,16 @@
 
         <div th:replace="modal_fragment :: confirm_modal" />
 
+        <div class="modal fade " id="detailModal">
+            <div class="modal-dialog modal-lg" style="max-width: 90%">
+                <div class="modal-content p-5" >
+
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="fragments :: pagination('/products', 'products')"></div>
+
 
         <div th:replace="fragments :: footer"></div>
     </div>
@@ -89,6 +132,11 @@
             showDeleteConfirmModal($(this), 'product');
 
         });
+        $(".link-detail").on("click", function(e){
+            e.preventDefault();
+            linkDetailURL= $(this).attr("href");
+            $("#detailModal").modal("show").find(".modal-content").load(linkDetailURL)
+        })
 
     });
 

@@ -1,0 +1,116 @@
+<div class="modal-header">
+    <h4 class="modal-title">Product Details</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+
+  <div>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+          <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#overview" role="tab">Overview</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link"  data-toggle="tab" href="#description" role="tab" >Description</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link"  data-toggle="tab" href="#images" role="tab" >Images</a>
+          </li>
+
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+          <div class="tab-pane active" id="overview" role="tabpanel" >
+              <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Product Name:</label>
+                  <div class="col-sm-8">
+                      <input type="text" class="form-control" th:value="${product.nameProduct}" readonly
+                             />
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Alias:</label>
+                  <div class="col-sm-8">
+                      <input type="text" class="form-control" th:value="${product.alias}"
+                              readonly/>
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Categories:</label>
+                  <div class="col-sm-8">
+                      <input type="text" class="form-control" th:value="${product.category.name}"
+                             readonly/>
+
+                      </select>
+                  </div>
+              </div>
+
+
+
+              <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Enabled:</label>
+                  <div class="col-sm-8">
+                      <input type="checkbox" class="form-control" th:checked="${product.enabled}" onclick="return false;"/>
+                  </div>
+              </div>
+
+
+              <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Updated time:</label>
+                  <div class="col-sm-8">
+                     <span th:text="${#dates.format(product.updatedTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                  </div>
+              </div>
+
+
+
+          </div>
+
+          <div class="tab-pane" id="description" role="tabpanel" >
+
+              <div class="m-2">
+                  <label>Short Description</label>
+                  <div th:utext="${product.shortDescription}" class="border m-2 p-2"></div>
+              </div>
+
+
+
+              <div>
+                  <label>Full Description</label>
+                  <div th:utext="${product.fullDescription}"  class="border m-2 p-2"></div>
+              </div>
+
+          </div>
+
+          <div class="tab-pane" id="images" role="tabpanel" >
+
+              <div th:replace="products/product_images_readonly :: content" ></div>
+
+<!--
+              <div class="row" id="divProductImages"  >
+                  <div class="col border m-1" >
+                      <div><label>Main Image: [[${product.mainImage}]]</label></div>
+                      <div class="m-2">
+                          <img style="max-width: 500px"  alt="Main image preview" class="img-fluid"
+                               th:src="@{${product.mainImagePath}}"/>
+                      </div>
+
+                  </div>
+
+
+                  </div>
+-->
+
+
+
+              </div>
+      </div>
+
+  </div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+</div>

@@ -1,50 +1,84 @@
 <!DOCTYPE html>
 <!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+<html
+      xmlns:th="http://thymeleaf.org"  xmlns:sec="http://www.w3.org/1999/xhtml">
 
 
 <body>
 <div th:fragment="content" th:remove="tag" th:object="${product}" >
     <input class="form-control" th:field="*{idProduct}" id="idProduct" hidden/>
+    <input type="text" class="form-control" th:field="*{alias}"
+           minlength="3" maxlength="256" hidden/>
+    <input type="text" class="form-control" th:field="*{nameProduct}"
+           minlength="3" maxlength="256" hidden/>
 
+    <th:block sec:authorize="hasAnyAuthority('admin')">
     <div class="form-group row">
         <label class="col-sm-4 col-form-label">Product Name:</label>
         <div class="col-sm-8">
+
+
             <input type="text" class="form-control" th:field="*{nameProduct}" id="nameProduct"
                    minlength="3" maxlength="256" required/>
+
         </div>
     </div>
+    </th:block>
 
+    <th:block sec:authorize="hasAnyAuthority('admin')">
     <div class="form-group row">
         <label class="col-sm-4 col-form-label">Alias:</label>
         <div class="col-sm-8">
+
             <input type="text" class="form-control" th:field="*{alias}"
-                   minlength="3" maxlength="256" required/>
+                   minlength="3" maxlength="256" />
+
         </div>
     </div>
+    </th:block>
 
+    <th:block sec:authorize="hasAnyAuthority('admin')">
     <div class="form-group row">
         <label class="col-sm-4 col-form-label">Categories:</label>
         <div class="col-sm-8">
             <select class="form-control" th:field="*{category}">
                 <th:block th:each="cat: ${listCategories}">
-                    <option th:value="${cat.idCategory}">[[${cat.name}]]</option>
+                    <option th:value="${cat.idCategory}" >[[${cat.name}]]</option>
                 </th:block>
 
             </select>
         </div>
     </div>
+    </th:block>
 
 
-
+    <th:block sec:authorize="hasAnyAuthority('admin')">
     <div class="form-group row">
-    <label class="col-sm-4 col-form-label">Enabled:</label>
+        <label class="col-sm-4 col-form-label">Enabled:</label>
     <div class="col-sm-8">
-        <input type="checkbox" class="form-control" th:field="*{enabled}"/>
+        <input type="checkbox" class="form-control" th:field="*{enabled}" />
     </div>
 </div>
+    </th:block>
 
+
+    <th:block sec:authorize="hasAnyAuthority('editor')">
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Quantity:</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" th:field="*{quantity}"/>
+        </div>
+    </div>
+    </th:block>
+
+    <th:block sec:authorize="hasAnyAuthority('editor')">
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Cost:</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" th:field="*{cost}"/>
+        </div>
+    </div>
+    </th:block>
 
 
 

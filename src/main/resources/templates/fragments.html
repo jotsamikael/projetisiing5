@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 
 
     <head th:fragment="page_head(title, remove)" th:remove="${remove}">
@@ -67,13 +69,14 @@
         th:href="@{'/products/edit/' + ${product.idProduct}}"
         title="Edit this product"></a>
     &nbsp;
-    <th:block>
+    <th:block sec:authorize="hasAnyAuthority('admin')">
         <a  class="fas fa-trash fa-2x icon-red link-delete"
             th:href="@{'/products/delete/' + ${product.idProduct}}"
             th:entityId="${product.idProduct}"
             title="Delete this product"></a>
     </th:block>
 </div>
+
 
 
 

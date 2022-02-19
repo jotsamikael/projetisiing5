@@ -3,6 +3,7 @@ package com.example.agriweb.models;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
+import java.beans.Transient;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -182,9 +183,11 @@ public class Product {
     @Transient
     public String getMainImagePath(){
         if(idProduct == null || mainImage == null) return "/img/image-preview.jpg";
-        return "product-images/" +this.idProduct + "/" +this.mainImage;
+        return "/product-images/" +this.idProduct + "/" +this.mainImage;
 
     }
+
+
     @Override
     public String toString() {
         return "Product{" +
