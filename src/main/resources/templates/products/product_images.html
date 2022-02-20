@@ -16,9 +16,9 @@
                  th:src="@{${product.mainImagePath}}"/>
              </div>
            <div>
-               <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg" />
+               <input  type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg" />
            </div>
-           <input type="hidden" th:field="*{mainImage}"/>
+           <input  type="hidden" th:field="*{mainImage}"/>
        </div>
 
 
@@ -37,11 +37,11 @@
                         th:src="@{${productImage.imagePath}}"/>
                </div>
                <div>
-                   <input type="file" name="extraImage" accept="image/png, image/jpeg" />
+                   <input  type="file" name="extraImage" accept="image/png, image/jpeg" />
                </div>
 
-               <input type="hidden" th:value="${productImage.idProductImage}" name="imageIDs" th:id="'idImage'+ ${status.index}"/>
-               <input type="hidden"  th:value="${productImage.name}"  name="imageNames" th:id="'imageName'+ ${status.index}"/>
+               <input  type="hidden" th:value="${productImage.idProductImage}" name="imageIDs" th:id="'idImage'+ ${status.index}"/>
+               <input  type="hidden"  th:value="${productImage.name}"  name="imageNames" th:id="'imageName'+ ${status.index}"/>
 
            </div>
        </th:block>

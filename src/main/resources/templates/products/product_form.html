@@ -51,13 +51,13 @@
                 </div>
 
                 <div class="tab-pane" id="images" role="tabpanel" >
-                    <th:block sec:authorize="hasAnyAuthority('editor')">
+                    <!--<th:block sec:authorize="hasAnyAuthority('editor')">
                     <div th:replace="products/product_images_readonly :: content" ></div>
-                    </th:block>
+                    </th:block>-->
 
-                    <th:block sec:authorize="hasAnyAuthority('admin')">
+
                     <div th:replace="products/product_images :: content"></div>
-                    </th:block>
+
                 </div>
 
             </div>
