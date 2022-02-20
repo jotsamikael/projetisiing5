@@ -18,12 +18,40 @@
            <div>
                <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg" />
            </div>
+           <input type="hidden" th:field="*{mainImage}"/>
        </div>
 
-       <div class="col border m-1" id="divExtraImage0">
-           <div id="extraImageHeader0"><label>Extra Image #1:</label></div>
+
+       <th:block th:each="productImage, status : ${product.images}">
+
+           <div class="col border m-1" th:id="'divExtraImage'+ ${status.index}">
+               <div>
+                   <label>Extra Image #[[${status.index + 1}]]: [[${productImage.name}]]</label>
+                   <a name="linkRemoveExtra" class="btn fas fa-times-circle fa-2x icon-dark float-right"
+
+                      title="Remove this image"></a>
+
+               </div>
+               <div class="m-2">
+                   <img style="max-width: 500px" th:id="'extraThumbnail'+ ${status.index}" alt="Extra image 1 preview" class="img-fluid"
+                        th:src="@{${productImage.imagePath}}"/>
+               </div>
+               <div>
+                   <input type="file" name="extraImage" accept="image/png, image/jpeg" />
+               </div>
+
+               <input type="hidden" th:value="${productImage.idProductImage}" name="imageIDs" th:id="'idImage'+ ${status.index}"/>
+               <input type="hidden"  th:value="${productImage.name}"  name="imageNames" th:id="'imageName'+ ${status.index}"/>
+
+           </div>
+       </th:block>
+
+
+
+       <div class="col border m-1" th:id="'divExtraImage' + ${numberOfExistingExtraImages}">
+           <div th:id="'extraImageHeader' + ${numberOfExistingExtraImages}"><label>extra Image #[[${numberOfExistingExtraImages}]]:</label></div>
            <div class="m-2">
-               <img style="max-width: 500px" id="extraThumbnail0" alt="Extra image 1 preview" class="img-fluid"
+               <img style="max-width: 500px" th:id="'extraThumbnail' + ${numberOfExistingExtraImages}" alt="Extra image 1 preview" class="img-fluid"
                     th:src="@{/img/image-preview.jpg}"/>
            </div>
            <div>

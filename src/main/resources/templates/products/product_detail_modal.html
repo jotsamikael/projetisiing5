@@ -87,22 +87,33 @@
 
           <div class="tab-pane" id="images" role="tabpanel" >
 
-              <div th:replace="products/product_images_readonly :: content" ></div>
-
 <!--
-              <div class="row" id="divProductImages"  >
+              <div th:replace="products/product_images_readonly :: content" ></div>
+-->
+
+              <div class="row">
                   <div class="col border m-1" >
                       <div><label>Main Image: [[${product.mainImage}]]</label></div>
                       <div class="m-2">
-                          <img style="max-width: 500px"  alt="Main image preview" class="img-fluid"
+                          <img style="max-width: 500px" alt="Main image preview" class="img-fluid"
                                th:src="@{${product.mainImagePath}}"/>
                       </div>
-
                   </div>
 
 
-                  </div>
--->
+                  <th:block th:each="productImage, status : ${product.images}">
+
+                      <div class="col border m-1">
+                          <div>
+                              <label>Extra Image #[[${status.index + 1}]]: [[${productImage.name}]]</label>
+
+                          </div>
+                          <div class="m-2">
+                              <img style="max-width: 500px"  alt="Extra image 1 preview" class="img-fluid"
+                                   th:src="@{${productImage.imagePath}}"/>
+                          </div>
+                      </div>
+                  </th:block>
 
 
 

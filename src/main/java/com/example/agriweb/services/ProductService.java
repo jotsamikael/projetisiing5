@@ -61,6 +61,8 @@ public class ProductService {
         return productRepo.save(product);
     }
 
+
+
     public String checkUnique(Long idProduct, String name){
         boolean isCreatingNew = (idProduct == null || idProduct== 0);
         Product productByName =  productRepo.findByNameProduct(name);

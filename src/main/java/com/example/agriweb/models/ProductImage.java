@@ -21,6 +21,12 @@ public class ProductImage {
     public ProductImage() {
     }
 
+    public ProductImage(Long idProductImage, String name, Product product) {
+        this.idProductImage = idProductImage;
+        this.name = name;
+        this.product = product;
+    }
+
     public ProductImage(String name, Product product) {
         this.name = name;
         this.product = product;
@@ -49,4 +55,11 @@ public class ProductImage {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+
+@Transient
+    public String getImagePath(){
+        return "/product-images/"+ product.getIdProduct() + "/extras/"+ this.name;
+}
+
 }

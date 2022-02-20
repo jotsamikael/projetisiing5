@@ -7,10 +7,10 @@
 <body>
 <div th:fragment="content" th:remove="tag" th:object="${product}" >
     <input class="form-control" th:field="*{idProduct}" id="idProduct" hidden/>
-    <input type="text" class="form-control" th:field="*{alias}"
+  <!--  <input type="text" class="form-control" th:field="*{alias}"
            minlength="3" maxlength="256" hidden/>
     <input type="text" class="form-control" th:field="*{nameProduct}"
-           minlength="3" maxlength="256" hidden/>
+           minlength="3" maxlength="256" hidden/>-->
 
     <th:block sec:authorize="hasAnyAuthority('admin')">
     <div class="form-group row">

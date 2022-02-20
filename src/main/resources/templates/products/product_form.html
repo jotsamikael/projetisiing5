@@ -130,6 +130,7 @@
             })
             
         })
+
        /* $("#extraImage1").change(function () {
             fileSize = this.files[0].size;
 
@@ -158,8 +159,17 @@
                 showImageThumbnail(this);
             }
 
-        });
+        })
     })
+
+
+    $("a[name='linkRemoveExtra']").each(function(index) {
+        $(this).click(function() {
+            removeExtraImage(index);
+        })
+
+    })
+
     //image thumbnail handling
     function showImageThumbnail(fileInput){
         var file = fileInput.files[0];
@@ -175,6 +185,14 @@
     //image extra1 handling
     function showImageExtra1Thumbnail(fileInput, index) {
         var file = fileInput.files[0];
+
+        fileName = file.name;
+
+        imageNameHiddenField = $("#imageName" + index);
+        if(imageNameHiddenField.length){
+            imageNameHiddenField.val(fileName);
+        }
+
         var reader = new FileReader();
         reader.onload = function (e) {
             $("#extraThumbnail" + index).attr("src", e.target.result);

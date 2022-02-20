@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.beans.Transient;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -43,10 +44,10 @@ public class Product {
     private float discountPercent;
     private float quantity;
 
-    @Column(name= "main_image" , nullable = false)
+    @Column(name= "main_image")
     private String mainImage;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProductImage> images = new HashSet<>();
 
     @ManyToOne
@@ -194,5 +195,17 @@ public class Product {
                 "idProduct=" + idProduct +
                 ", nameProduct='" + nameProduct + '\'' +
                 '}';
+    }
+
+    public boolean containsImageName(String imageName) {
+        Iterator<ProductImage> iterator = images.iterator();
+
+        while(iterator.hasNext()){
+           ProductImage image = iterator.next();
+           if(image.getName().equals(imageName)){
+               return true;
+           }
+        }
+        return false;
     }
 }
