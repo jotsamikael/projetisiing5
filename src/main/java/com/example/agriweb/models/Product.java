@@ -26,7 +26,7 @@ public class Product {
     @Column( length = 512, nullable = false)
     private String shortDescription;
 
-    @Column(length = 496, nullable = false)
+    @Column(length = 1024, nullable = false)
     private String fullDescription;
 
     @Column(name = "created_time")

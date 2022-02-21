@@ -97,6 +97,8 @@ public class CategoryService {
 
 
     public Category saveCategory(Category category){
+       // category.setAllParentIDs("-"+ String.valueOf(category.getIdCategory()) + "-");
+
         return categoryRepo.save(category);
     }
 
@@ -221,8 +223,13 @@ public class CategoryService {
     return listNoChildrenCategories;
     }
 
-    public Category getCategory(String alias){
-        return categoryRepo.findByAliasEnabled(alias);
+    public Category getCategory(String alias) throws CategoryNotFoundException {
+        Category category = categoryRepo.findByAliasEnabled(alias);
+
+       if(category == null){
+           throw new CategoryNotFoundException("Could not find category with alias: " +alias);
+       }
+        return category;
     }
 
 

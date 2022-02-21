@@ -19,6 +19,8 @@ import java.util.NoSuchElementException;
 @Transactional
 public class ProductService {
     public static final int PRODUCTS_PER_PAGE = 5;
+    public static final int SEARCH_RESULTS_PER_PAGE = 5;
+
 
     @Autowired private ProductRepo productRepo;
 
@@ -102,5 +104,19 @@ public class ProductService {
         Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
 
         return productRepo.listByCategory(idCategory, categoryIdMatch, pageable);
+    }
+
+    public Product getProduct(String alias) throws ProductNotFoundException {
+        Product product = productRepo.findByAlias(alias);
+        if(product == null){
+            throw new ProductNotFoundException("Could not find any product with alias: " +alias);
+        }
+        return product;
+    }
+
+    public Page<Product> search(String keyword, int pageNum){
+        Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULTS_PER_PAGE);
+
+       return productRepo.search(keyword, pageable);
     }
 }

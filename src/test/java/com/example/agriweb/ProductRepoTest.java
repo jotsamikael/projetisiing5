@@ -100,4 +100,16 @@ public class ProductRepoTest {
 
 
     }
+
+
+
+    @Test
+    public void testFindByAlias(){
+        String alias = "porc";
+
+        Product product = productRepo.findByAlias(alias);
+
+        assertThat(product).isNotNull();
+    }
+
 }
