@@ -27,4 +27,9 @@ public interface ProductRepo extends PagingAndSortingRepository<Product, Long> {
             + "OR p.category.name LIKE %?1%")
     public Page<Product> findAll(String keyword, Pageable pageable);
 
+
+    @Query("SELECT p FROM Product p  WHERE p.enabled = true " +
+            "AND (p.category.id = ?1 OR p.category.allParentIDs LIKE %?2%)"
+    + " ORDER BY p.nameProduct ASC")
+    public Page<Product> listByCategory(Long idCategory, String categoryIDMatch, Pageable pageable);
 }

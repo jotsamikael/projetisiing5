@@ -295,5 +295,52 @@ public class ProductController {
     }
 
 
+    @GetMapping("/c/{category_alias}")
+    public String viewCategoryFirstPage(@PathVariable("category_alias") String alias,
+                                     Model model){
+
+        return viewCategoryByPage(alias,1,model);
+    }
+
+
+
+    @GetMapping("/c/{category_alias}/page/{pageNum}")
+    public String viewCategoryByPage(@PathVariable("category_alias") String alias,
+                               @PathVariable("pageNum") int pageNum,
+                               Model model){
+
+          Category category = categoryService.getCategory(alias);
+       if(category == null){
+           return "error/404";
+       }
+          List<Category> listCategoryParents =  categoryService.getCtegoryParents(category);
+                 Page<Product> pageProducts   =    productService.listByCategory(pageNum, category.getIdCategory());
+
+                List<Product> listProducts = pageProducts.getContent();
+
+
+        long startCount = (pageNum - 1) * productService.PRODUCTS_PER_PAGE + 1;
+        long endCount = startCount +  productService.PRODUCTS_PER_PAGE - 1;
+        if(endCount > pageProducts.getTotalElements()){
+            endCount = pageProducts.getTotalElements();
+        }
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", pageProducts.getTotalPages());
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItems", pageProducts.getTotalElements());
+
+
+
+        model.addAttribute("pageTitle", category.getName());
+        model.addAttribute("listCategoryParents", listCategoryParents);
+        model.addAttribute("listProducts", listProducts);
+        model.addAttribute("category", category);
+
+
+        return "products_by_category";
+    }
+
 
 }

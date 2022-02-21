@@ -27,7 +27,7 @@
 
         <div th:replace="fragments :: search_form('/products/page/1')"/>
 
-        <div class="full-details">
+        <div >
             <table class="table table-responsive-xl table-striped table-bordered table-hover">
                 <thead class="thead-dark">
                 <tr>
@@ -35,7 +35,7 @@
                     <th>Main Image</th>
                     <th th:replace="fragments :: column_link('/products','nameProduct', 'Product Name', 'none')" />
 
-                    <th class="hideable-column">Alias</th>
+                    <th>Alias</th>
 
                     <th:block sec:authorize="hasAnyAuthority('editor')">
                     <th>Cost</th>
@@ -56,7 +56,7 @@
                 </thead>
                 <tbody>
                 <tr th:each = "product: ${listProducts}">
-                    <td>[[${product.idProduct}]]</td>
+                    <td class="hideable-column">[[${product.idProduct}]]</td>
 
                     <td>
                         <img  th:src="@{${product.mainImagePath}}" class="img-fluid" style="width: 120px"/>

@@ -16,7 +16,7 @@ import java.util.*;
 @Service
 @Transactional
 public class CategoryService {
-    public static final int ROOT_CATEGORIES_PER_PAGE = 4;
+    public static final int ROOT_CATEGORIES_PER_PAGE = 3;
 
     @Autowired
     private CategoryRepo categoryRepo;
@@ -206,5 +206,38 @@ public class CategoryService {
 
         }
         categoryRepo.deleteById(idCategory);
+    }
+
+    public List<Category> listNoChildrenCategories(){
+        List<Category> listNoChildrenCategories = new ArrayList<>();
+        List<Category> listEnabledCategories = categoryRepo.findAllEnabled();
+       listEnabledCategories.forEach(category -> {
+           Set<Category> children = category.getChildren();
+           if(children == null || children.size() == 0){
+              listNoChildrenCategories.add(category);
+           }
+       });
+
+    return listNoChildrenCategories;
+    }
+
+    public Category getCategory(String alias){
+        return categoryRepo.findByAliasEnabled(alias);
+    }
+
+
+    public List<Category> getCtegoryParents(Category child){
+        List<Category> listParents = new ArrayList<>();
+
+         Category parent = child.getParent();
+
+         while(parent != null){
+             listParents.add(0, parent);
+             parent = parent.getParent();
+         }
+
+         listParents.add(child);
+
+        return listParents;
     }
 }

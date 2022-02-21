@@ -31,4 +31,11 @@ public interface CategoryRepo extends PagingAndSortingRepository<Category, Long>
    @Modifying
     public void updateEnabledStatus(Long idCategory, boolean enabled);
 
+   @Query("SELECT c FROM Category c WHERE c.enabled = true ORDER BY c.name ASC ")
+   public List<Category> findAllEnabled();
+
+
+   @Query("SELECT c FROM Category c WHERE c.enabled = true AND c.alias = ?1 ")
+   public Category findByAliasEnabled(String alias);
+
 }

@@ -80,6 +80,21 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
            sec:authentication="principal.username"></a>
         &nbsp;
         <span sec:authentication="principal.authorities"></span>
+        <h4>Shopping by Categories</h4>
+
+    </div>
+
+    <div class="row">
+        <div class="col" th:each="cat: ${listCategories}">
+            <div>
+                <img th:src="@{${cat.imagePath}}" style="width: 80px; clip-path: circle();"/>
+            </div>
+            <div>
+                <a th:href="@{'/c/' +${cat.alias}}">[[${cat.name}]]</a>
+            </div>
+
+        </div>
+
     </div>
 
     <div th:replace="fragments :: footer"></div>

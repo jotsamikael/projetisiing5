@@ -106,4 +106,22 @@ public class CategoryRepoTesst {
         assertThat(category).isNotNull();
         assertThat(category.getAlias()).isEqualTo(alias);
     }
+
+    @Test
+    public void testListEnabledCategories(){
+        List<Category> categories = categoryRepo.findAllEnabled();
+        categories.forEach(category -> {
+            System.out.println(category.getName() + "(" + category.isEnabled() + ")");
+        });
+    }
+
+    @Test
+    public void testFindCategoryByAlias(){
+        String alias = "epices";
+        Category category = categoryRepo.findByAliasEnabled(alias);
+
+        assertThat(category).isNotNull();
+
+    }
+
 }

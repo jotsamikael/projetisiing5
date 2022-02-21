@@ -96,4 +96,11 @@ public class ProductService {
             throw new ProductNotFoundException("Could not find any product with id: "+idProduct);
         }
     }
+
+    public Page<Product> listByCategory(int pageNum, Long idCategory){
+        String categoryIdMatch = "-" + String.valueOf(idCategory) + "-";
+        Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
+
+        return productRepo.listByCategory(idCategory, categoryIdMatch, pageable);
+    }
 }
