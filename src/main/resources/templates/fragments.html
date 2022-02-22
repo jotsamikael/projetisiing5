@@ -20,6 +20,7 @@
 
 </head>
 <body>
+
 <th th:fragment="column_link(moduleURL, fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
     <a class="text-white"  th:href="@{${moduleURL} + '/page/' +${currentPage} + '?sortField='+ ${fieldName} +'&sortDir=' +${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">
         [[${columnLabel}]]
@@ -158,7 +159,7 @@
         <button type="submit"  class="btn btn-success" >
             <i class="fas fa-search"></i>
         </button>
-        &nbsp;&nbsp;
+        &nbsp;
         <button type="button" class="btn btn-secondary" onclick="clearFilter()" >
             <i class="fas fa-eraser"></i>
         </button>
@@ -168,17 +169,81 @@
 
 
 
+<div th:fragment="carousel" class="pt-2 pb-2">
+    <div id="demo" class="carousel slide" data-ride="carousel">
 
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
 
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="max-height: 250px">
+                <img th:src="@{/img/carou4.jpg}"  class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item" style="max-height: 250px">
+                <img th:src="@{/img/carou7.jpg}" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item" style="max-height: 250px">
+                <img th:src="@{/img/carou5.jpg}" class="d-block w-100" alt="">
+            </div>
+        </div>
 
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
 
-
-<footer th:fragment="footer" class="footer bg-dark m-3">
-    <div class="text-center">
-        <p class="text-white">Made with ♥ by Group xx || All rights reserved &copy; Agriweb 2022</p>
     </div>
-</footer>
+</div>
 
+
+
+
+    <div th:fragment="footer">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bottomNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="bottomNavbar">
+                <ul class="navbar-nav">
+
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white font-weight-bold" th:href="@{/products}">About</a>
+                        </li>
+
+
+
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white font-weight-bold" th:href="@{/reports}">Contact Us</a>
+                        </li>
+
+
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white font-weight-bold" th:href="@{/reviews}">Reviews</a>
+                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white font-weight-bold">Made with ♥ by Group xx || All rights reserved &copy; Agriweb 2022</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+
+    </div>
 
 
 </body>

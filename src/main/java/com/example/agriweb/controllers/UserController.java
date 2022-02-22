@@ -134,7 +134,8 @@ public class UserController {
             return "userform";
 
         } catch (UserNotFoundException ex){
-            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+          String  message = ex.getMessage();
+            redirectAttributes.addFlashAttribute("message", message);
             return "redirect:/users";
         }
 

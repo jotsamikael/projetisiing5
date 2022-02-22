@@ -85,7 +85,13 @@ public class CategoryContoller {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             category.setImage(fileName);
 
+
+            //category.setAllParentIDs("-"+ String.valueOf(category.getIdCategory()) + "-");
+
+
             Category savedCategory = categoryService.saveCategory(category);
+            //category.setAllParentIDs("-"+ String.valueOf(savedCategory.getIdCategory()) + "-");
+
             String uploadDir = "../category-image/" + savedCategory.getIdCategory();
             FileUploadUtil.cleanDir(uploadDir);
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);

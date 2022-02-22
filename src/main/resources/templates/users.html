@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: page_head('Users - Agriweb Admin', 'none')"/>
 <!--<head>
@@ -68,7 +68,7 @@
         <a class="fas fa-file-csv fa-3x icon-green m-4" th:href="@{/users/export/csv}"></a>
 
 
-        <div th:if="${message!= null}" class="alert alert-success text-center">
+        <div th:if="${message != null}" class="alert alert-success text-center">
             [[${message}]]
 
         </div>
@@ -233,7 +233,7 @@
 
  </div>-->
 
-<!-- Modal popup--><!--
+<!-- Modal popup-->
 <div class="modal fade text-center" id="confirmModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -256,10 +256,10 @@
 
     </div>
 
-</div>-->
+</div>
 
 <!-- Modal popup-->
-<div th:replace="modal_fragment :: modal_dialog"></div>
+<!--<div th:replace="modal_fragment :: modal_dialog"></div>-->
 
 
 <div th:replace="fragments :: footer"></div>

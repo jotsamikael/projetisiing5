@@ -10,7 +10,7 @@
     <div th:replace="navigation :: menu"></div>
     <div th:replace="navigation :: search_nav"></div>
 
-    <div class="text-center p-5" th:if="${listCategoryParents != null && !listCategoryParents.isEmpty()}">
+    <div class="text-center p-2" th:if="${listCategoryParents != null && !listCategoryParents.isEmpty()}">
         <div class="row">
             <div class="col">
                 <nav>
@@ -46,15 +46,11 @@
 
     </div>
 
-    <div class="row">
-        &nbsp;
     </div>
 
-    </div>
-
-        <div class="row">
+        <div class="row mr-3 ml-3" style="border: lightgrey solid 2px; border-radius: 15px">
             <th:block th:each="product: ${listProducts}">
-                <div class="col" style="width: 150px;">
+                <div class="col-md-3" style="width: 150px;">
 
                     <div>
                         <a th:href="@{'/p/' +${product.alias}}">

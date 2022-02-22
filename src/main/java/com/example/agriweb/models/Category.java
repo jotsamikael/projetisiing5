@@ -30,7 +30,7 @@ public class Category {
     }
 
     public void setAllParentIDs(String allParentIDs) {
-        this.allParentIDs = "-"+ String.valueOf(getIdCategory()) + "-";
+        this.allParentIDs = allParentIDs;
     }
 
     @OneToOne

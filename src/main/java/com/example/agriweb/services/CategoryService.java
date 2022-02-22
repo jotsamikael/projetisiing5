@@ -97,7 +97,7 @@ public class CategoryService {
 
 
     public Category saveCategory(Category category){
-       // category.setAllParentIDs("-"+ String.valueOf(category.getIdCategory()) + "-");
+        //category.setAllParentIDs("-"+ String.valueOf(category.getIdCategory()) + "-");
 
         return categoryRepo.save(category);
     }

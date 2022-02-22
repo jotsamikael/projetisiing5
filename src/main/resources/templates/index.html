@@ -75,24 +75,28 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <div th:replace="navigation :: menu"></div>
     <div th:replace="navigation :: search_nav"></div>
 
-    <div class="text-center">
-        <h2>welcome to Agriweb</h2>
-        <a
+    <div class="text-center behind">
+        <h1 class="pt-2">Welcome to Agriweb</h1>
+        <a class="p-1"
            th:href="@{/account}"
            sec:authentication="principal.username"></a>
         &nbsp;
         <span sec:authentication="principal.authorities"></span>
-        <h4>Shopping by Categories</h4>
+
+
+
+        <div th:replace="fragments :: carousel"></div>
+
+        <h4 class="pb-2">Shopping by Categories</h4>
 
     </div>
 
-    <div class="row">
-        <div class="col" th:each="cat: ${listCategories}">
+    <div class="row pt-4 mb-5 ml-5 mr-5" style="border: lightgrey solid 2px; border-radius: 15px" >
+        <div class="col-md-3" th:each="cat: ${listCategories}" >
             <div>
-                <img th:src="@{${cat.imagePath}}" style="width: 80px; clip-path: circle();"/>
-            </div>
-            <div>
-                <a th:href="@{'/c/' +${cat.alias}}">[[${cat.name}]]</a>
+                <img class="align-content-center" th:src="@{${cat.imagePath}}" style="max-width: 80px; clip-path: circle();"/>
+
+                <a class="align-content-center font-weight-bold" th:href="@{'/c/' +${cat.alias}}">[[${cat.name}]]</a>
             </div>
 
         </div>
