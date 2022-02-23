@@ -19,7 +19,7 @@
 
 
             <input type="text" class="form-control" th:field="*{nameProduct}" id="nameProduct"
-                   th:readonly="${#authorization.expression('hasAuthority(''editor'')')}"
+                   th:readonly="${#authorization.expression('hasAuthority(''seller'')')}"
                    minlength="3" maxlength="256" required/>
 
         </div>
@@ -30,7 +30,7 @@
         <div class="col-sm-8">
 
             <input type="text" class="form-control" th:field="*{alias}"
-                   th:readonly="${#authorization.expression('hasAuthority(''editor'')')}"
+                   th:readonly="${#authorization.expression('hasAuthority(''seller'')')}"
                    minlength="3" maxlength="256" />
 
         </div>
@@ -41,7 +41,7 @@
         <div class="col-sm-8">
             <select class="form-control" th:field="*{category}">
                 <th:block th:each="cat: ${listCategories}">
-                    <option th:value="${cat.idCategory}" th:hidden="${#authorization.expression('hasAuthority(''editor'')')}"
+                    <option th:value="${cat.idCategory}" th:hidden="${#authorization.expression('hasAuthority(''seller'')')}"
                     >[[${cat.name}]]</option>
                 </th:block>
 
@@ -54,7 +54,7 @@
     <div class="form-group row">
         <label class="col-sm-4 col-form-label">Enabled:</label>
     <div class="col-sm-8">
-        <input th:hidden="${#authorization.expression('hasAuthority(''editor'')')}"
+        <input th:hidden="${#authorization.expression('hasAuthority(''seller'')')}"
                                   type="checkbox" class="form-control" th:field="*{enabled}" />
     </div>
 </div>
@@ -64,7 +64,7 @@
     <div class="form-group row">
         <label class="col-sm-4 col-form-label">Quantity:</label>
         <div class="col-sm-8">
-            <input placeholder="Kg"  th:readonly="${#authorization.expression('hasAuthority(''admin'')')}" type="number" class="form-control" th:field="*{quantity}"/>
+            <input placeholder="Quantité en Kg"  th:readonly="${#authorization.expression('hasAuthority(''admin'')')}" type="number" class="form-control" th:field="*{quantity}"/>
         </div>
     </div>
 
@@ -72,7 +72,7 @@
     <div class="form-group row">
         <label class="col-sm-4 col-form-label">Cost:</label>
         <div class="col-sm-8">
-            <input placeholder="XFA" th:readonly="${#authorization.expression('hasAuthority(''admin'')')}"  type="number" class="form-control" th:field="*{cost}"/>
+            <input placeholder="Prix d'un kg en XFA" th:readonly="${#authorization.expression('hasAuthority(''admin'')')}"  type="number" class="form-control" th:field="*{cost}"/>
         </div>
     </div>
 

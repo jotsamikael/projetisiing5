@@ -5,7 +5,7 @@
 
 <head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
 
-<body>
+<body class="main">
 <div class="container-fluid">
     <div th:replace="navigation :: menu"></div>
     <div th:replace="navigation :: search_nav"></div>
@@ -48,7 +48,7 @@
 
     </div>
 
-        <div class="row mr-3 ml-3" style="border: lightgrey solid 2px; border-radius: 15px">
+        <div class="row mr-3 ml-3  p-5 mt-5 mb-5" style="border: lightgrey solid 2px; border-radius: 15px">
             <th:block th:each="product: ${listProducts}">
                 <div class="col-md-3" style="width: 150px;">
 
@@ -58,9 +58,9 @@
                         <br/>
                         <b>[[${product.nameProduct}]]</b>
                         </a>
-                        <p>[[${product.cost}]] XCFA</p>
+                        <p><b>[[${product.cost}]]</b> XCFA /Kg</p>
 
-                        <p>En Stock: [[${product.cost}]] Kg</p>
+                        <span>En Stock: <b>[[${product.quantity}]]</b> Kg</span>
                     </div>
 
                 </div>

@@ -23,10 +23,10 @@ public class Product {
     @Column(unique = true, length = 256, nullable = false)
     private String alias;
 
-    @Column( length = 512, nullable = false)
+    @Column(nullable = false)
     private String shortDescription;
 
-    @Column(length = 1024, nullable = false)
+    @Column(nullable = false)
     private String fullDescription;
 
     @Column(name = "created_time")

@@ -9,13 +9,16 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
 <!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript" th:src="@{/js/common.js}"></script>
     <head/>
 
-<body>
+<body class="main behind">
 <div class="container-fluid">
    <!-- <div>
         <form th:action="@{/logout}" name="logoutForm" method="post" th:hidden="true">
@@ -75,8 +78,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <div th:replace="navigation :: menu"></div>
     <div th:replace="navigation :: search_nav"></div>
 
-    <div class="text-center behind">
-        <h1 class="pt-2">Welcome to Agriweb</h1>
+    <div class="text-center">
+        <h1 class="pt-2 ">Welcome to Agriweb</h1>
         <a class="p-1"
            th:href="@{/account}"
            sec:authentication="principal.username"></a>
@@ -87,7 +90,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
         <div th:replace="fragments :: carousel"></div>
 
-        <h4 class="pb-2">Shopping by Categories</h4>
+        <h3 class="pb-4 pt-4"><u>Shopping by Categories</u></h3>
 
     </div>
 

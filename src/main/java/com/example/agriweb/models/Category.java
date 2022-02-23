@@ -58,6 +58,7 @@ public class Category {
         Category copyCategory = new Category();
         copyCategory.setIdCategory(idCategory);
         copyCategory.setName(name);
+
         return copyCategory;
     }
 
@@ -101,6 +102,7 @@ public class Category {
         this.idCategory = idCategory;
         this.name = name;
         this.alias = alias;
+
     }
 
     public Long getIdCategory() {
